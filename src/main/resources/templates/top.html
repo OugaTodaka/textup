@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>トップページ</title>
+<link th:href="@{/webjars/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+</head>
+<body>
+<h1>ここはトップページです</h1>
+	<h3>登録されたアドレス一覧</h3>
+
+	<div th:if="${addressList!=null and !addressList.empty}">
+		<table class="table table-striped">
+			<thead>
+				<th>#</th>
+				<th>姓</th>
+				<th>名</th>
+				<th>メルアド</th>
+				<th>電話番号</th>
+				<th>更新日</th>
+				<th>削除日</th>
+				<th>作成日</th>
+				<th></th>
+				<th role="action"></th>
+			</thead>
+			<tbody>
+				<tr class="align-middle" th:each="addressList, stat : ${addressBook}" th:object="${addressBook}">
+					<td th:text="${stat.count}">nasi</td>
+					<td th:text="|*{last_Name}　*{first_Name}|">nasi</td>
+					<td th:text="*{email_address}">nasi</td>
+					<td>
+						<a class="btn btn-warning" th:href="@{/address/edit/{id}(id=*{id})}">編集・削除</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div th:unless="${addressList!=null and !addressList.empty}">
+		<div class="alert alert-danger" role="alert">
+			データなし
+		</div>
+	</div>
+	
+	<a href="/form">データの追加</a>
+</body>
+</html>
